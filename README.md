@@ -1,0 +1,1 @@
+# kurz-python-czechitas
