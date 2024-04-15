@@ -1,15 +1,16 @@
+from dataclasses import dataclass
+
+@dataclass
 class Item:
-    def __init__(self, name, price):
-        self.name  = name
-        self.price = price
+    name: str
+    price: float
     
     def __str__(self):
         return f"{self.name}: {self.price} Kč"
-    
+
+@dataclass    
 class Pizza(Item):
-    def __init__(self, name, price, ingredients):
-        super().__init__(name, price)
-        self.ingredients = ingredients
+    ingredients: dict
 
     def __str__(self):
         return super().__str__() + f", ingredience: {self.ingredients}"
@@ -19,20 +20,20 @@ class Pizza(Item):
         self.ingredients[ingredient] = quantity 
         return self
 
+@dataclass
 class Drink(Item):
-    def __init__(self, name, price, volume):
-        super().__init__(name, price)
-        self.volume = volume
+    volume: int
 
     def __str__(self):
         return super().__str__() + f"({self.volume} ml)"
-    
+
+
+@dataclass
 class Order:
-    def __init__(self, customer_name, delivery_adress, items, status="Nová"):
-        self.customer_name = customer_name
-        self.delivery_adress = delivery_adress
-        self.items = items
-        self.status = status
+    customer_name: str
+    delivery_adress: str
+    items: list
+    status: str = "Nová"
 
     def __str__(self):
         polozky = []
@@ -43,12 +44,12 @@ class Order:
     def mark_delivered(self):
         self.status = "Doručeno"
 
+@dataclass
 class DeliveryPerson:
-    def __init__(self, name, phone_number, available=True, current_order=None):
-        self.name = name
-        self.phone_number = phone_number
-        self.available = available
-        self.current_order = current_order
+    name: str
+    phone_number: str
+    available: bool = True
+    current_order: Item = None
 
     def __str__(self):
         if self.available == True:
@@ -85,7 +86,7 @@ dzus = Drink("džus", 30, 330)
 order_novak = Order("Jan Novák", "Pražská 123", [margarita, cola])
 order_dvorakova = Order("Anna Dvořáková", "Brněnská 45", [hawai, fanta])
 order_hrochova = Order("Eva Hrochová", "Jihlavská 67", [hawai, dzus])
-# order.mark_delivered()
+# order_novak.mark_delivered()
 # print(objednavka_novak)
 
 # # Vytvoření řidiče a přiřazení objednávky
