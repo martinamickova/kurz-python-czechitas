@@ -21,4 +21,4 @@ firmy_name = response_name.json()
 
 print(f"Nalezeno subjektů: {firmy_name['pocetCelkem']}")
 for i in firmy_name['ekonomickeSubjekty']:
-    print(i['obchodniJmeno'], i['ico'])
+    print(i['obchodniJmeno'] + ', ' + i['ico'])
